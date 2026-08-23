@@ -1,0 +1,114 @@
+{
+  "project_name": "Synqora Landing Page",
+  "theme": "DARK",
+  "archetype": "Archetype 4 (Swiss & High-Contrast) - Premium Enterprise SaaS Dark Mode",
+  "design_philosophy": "A category-defining Leadership Operating System. Inspired by Linear, Stripe, Attio, Vercel, Arc. The design must feel clean, elegant, premium, spacious, and trustworthy. Use high-contrast typography, deep dark backgrounds, subtle glowing accents, and crisp 1px borders. Avoid heavy generic gradients, cheap illustrations, and cartoon icons. Rely heavily on CSS styling, typography, and code-based UI mockups (Shadcn/Recharts) to establish the 'Executive' and 'Enterprise' feel.",
+  "colors": {
+    "primary": "#6D5EF5",
+    "primary_hover": "#594CE0",
+    "accent": "#9F8BFF",
+    "background_dark": "#0B0F17",
+    "card_background": "#131A24",
+    "success": "#2ECC71",
+    "warning": "#F59E0B",
+    "error": "#EF4444",
+    "text_primary": "#FFFFFF",
+    "text_secondary": "#9CA3AF",
+    "border_subtle": "rgba(255, 255, 255, 0.08)",
+    "border_highlight": "rgba(109, 94, 245, 0.3)"
+  },
+  "typography": {
+    "font_heading": "Outfit, sans-serif",
+    "font_body": "Manrope, sans-serif",
+    "rules": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl tracking-tighter font-semibold text-white",
+      "h2": "text-3xl sm:text-4xl tracking-tight font-medium text-white",
+      "h3": "text-xl sm:text-2xl tracking-tight font-medium text-white",
+      "body_large": "text-lg text-gray-400 leading-relaxed",
+      "body_base": "text-base text-gray-400 leading-relaxed",
+      "labels": "text-xs font-bold uppercase tracking-[0.2em] text-[#9F8BFF]"
+    }
+  },
+  "layout_and_spacing": {
+    "philosophy": "Generous Spacing. Use p-8, p-12, p-16 for containers. Deep breathability.",
+    "bento_grid": "For feature sections, use a bento box layout with asymmetric spans (e.g., col-span-2 row-span-2 mixed with col-span-1 row-span-1).",
+    "dashboard_grid": "For dashboard mockups, use a tight Control Room grid (gap-4 or gap-6) where every pixel is utilized."
+  },
+  "surfaces_and_borders": {
+    "cards": "Flat background (#131A24), 1px subtle border (border-white/5 or border-white/10). On hover, translate-y-1, increase border opacity to border-white/20, and add a subtle primary glow shadow.",
+    "glassmorphism": "Use sparingly for sticky nav or floating elements: bg-[#0B0F17]/70, backdrop-blur-xl, 1px top/bottom border of white/10."
+  },
+  "components_strategy": {
+    "buttons": "Primary CTA: bg-[#6D5EF5] text-white hover:bg-[#594CE0] rounded-md px-6 py-3 font-medium transition-all. Secondary CTA: bg-transparent text-white border border-white/20 hover:bg-white/5 rounded-md px-6 py-3 font-medium.",
+    "badges": "Small, rounded-full, border border-[#6D5EF5]/30 bg-[#6D5EF5]/10 text-[#9F8BFF] px-3 py-1 text-xs font-medium tracking-wide.",
+    "dashboard_mockups": "CRITICAL: Do not use static images for dashboards. Build the dashboard visuals using Shadcn UI components (Cards, Tables, Badges) and Recharts. This creates an ultra-crisp, premium Vercel-like tech feel."
+  },
+  "media": {
+    "images": [
+      {
+        "category": "Brand Logo",
+        "url": "https://customer-assets.emergentagent.com/job_20a8ac32-9ce2-484e-9b7a-2d26119803cd/artifacts/n3eztj9v_Logo.png",
+        "description": "Synqora official logo. Use in Navbar and Footer."
+      }
+    ],
+    "icons": "Use 'lucide-react' for all UI icons. For Trust Bar, use a combination of Lucide geometric icons (Triangle, Hexagon, Command) paired with text to simulate partner logos."
+  },
+  "motion_and_interaction": {
+    "scroll_reveal": "Use framer-motion. Elements should fade in and slide up slightly (y: 20 to y: 0) as they enter the viewport.",
+    "diagram_animation": "For the 'Solution' flow diagram, use CSS or framer-motion to create glowing dots or dashed lines that travel between nodes (Sales -> Delivery -> Execution -> Insights -> Leadership)."
+  },
+  "page_sections": [
+    {
+      "id": "hero",
+      "description": "Centered large heading. Subheadline. Primary and Secondary CTAs. Below the text, a massive, code-built Dashboard Mockup contained in a browser-like window, angled or straight, with floating metric cards (Revenue, Business Health, Project Health) overlapping the edges for depth. Add a radial CSS glow behind the dashboard."
+    },
+    {
+      "id": "trust_bar",
+      "description": "Muted, grayscale logos of enterprise clients (use Lucide icons + text). 'Designed for Research Firms, Consulting Companies, Knowledge Services'."
+    },
+    {
+      "id": "problem",
+      "description": "Grid of 4 premium cards. Heading: 'Growing Businesses Don't Lack Data. They Lack Visibility.' Cards should use the 'Tracing Beam' or subtle border hover effect."
+    },
+    {
+      "id": "solution",
+      "description": "Animated flow diagram built with CSS/Framer Motion. Nodes representing 'Sales', 'Delivery', 'Execution', 'Insights' flowing into a central glowing 'Leadership Decisions' hub."
+    },
+    {
+      "id": "platform_overview",
+      "description": "Interactive layout. Left side: Vertical list of modules (Leadership Command Center, Sales Performance, etc.). Right side: A code-built dashboard preview that changes based on the active module on the left."
+    },
+    {
+      "id": "why_synqora",
+      "description": "Outcome-based benefits. 3-column grid. Clean, minimal typography with large glowing abstract icons or numbers."
+    },
+    {
+      "id": "how_it_works",
+      "description": "4-step vertical timeline (Connect, Capture, Analyze, Lead). As user scrolls, a line connecting the steps lights up."
+    },
+    {
+      "id": "dashboard_showcase",
+      "description": "Large interactive section. A tabbed interface (CEO, COO, Business Head, Sales, Operations). Clicking a tab swaps out the Recharts and Shadcn metrics displayed in the massive dashboard container below it."
+    },
+    {
+      "id": "feature_grid",
+      "description": "Premium Bento layout. 9 items. Use asymmetric spans. Each card should have a subtle dark background (#131A24) and soft border."
+    },
+    {
+      "id": "social_proof",
+      "description": "Testimonial cards. Clean quotes, avatar placeholders (colored circles with initials), and 5-star Lucide icons."
+    },
+    {
+      "id": "faq",
+      "description": "Shadcn Accordion component for questions like 'Can Synqora replace CRM?'"
+    },
+    {
+      "id": "final_cta",
+      "description": "Large contained block with a strong radial gradient glow. Big heading, 'Ready to Lead with Complete Visibility?', and a 'Book Your Demo' button."
+    }
+  ],
+  "accessibility_and_testing": {
+    "data_testid": "CRITICAL: All interactive elements (buttons, links, form inputs, tabs, accordions) MUST include a 'data-testid' attribute using kebab-case role-based naming (e.g., 'hero-book-demo-button', 'role-tab-ceo').",
+    "contrast": "Ensure all text meets at least AA contrast ratio against #0B0F17 and #131A24 backgrounds."
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "summary": "First full-stack test of Synqora landing page. Backend: 6/6 pytest cases passed for POST/GET /api/demo-requests including invalid email (422), missing required fields (422), persistence via GET after POST. Frontend: All 12 sections load, all data-testid selectors present, demo modal opens from navbar/hero, tour modal opens from hero and correctly transitions to demo modal via tour-book-demo-button, empty form submit does not show success (validation working), valid form submit shows demo-success state, all 6 platform-module buttons switch content, all 5 role tabs switch dashboard, all 5 FAQ items expand/collapse.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "TrustBar / sticky navbar", "issues": ["Sticky navbar overlaps the top of section titles when scrolled (e.g., 'Trusted by leaders building the next category.' is partially hidden behind the nav). Consider adding scroll-margin-top on anchor sections or top padding."]},
+      {"screen": "Dashboard preview / Platform modules", "issues": ["Recharts warns 'width(-1) and height(-1) of chart should be greater than 0' repeatedly — charts inside conditionally-rendered/hidden containers do not have a min height. Not visually broken but pollutes console; wrap ResponsiveContainer with fixed minHeight or aspect ratio."]},
+      {"screen": "DemoModal / TourModal (Radix Dialog)", "issues": ["Radix Dialog warning: 'Missing Description or aria-describedby for DialogContent'. Add <DialogDescription> for a11y."]}
+    ]
+  },
+  "test_report_links": ["/app/backend/tests/test_synqora_api.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [
+    "(Optional/minor) Add scroll-margin-top to sections to fix sticky-nav overlap on anchor scroll.",
+    "(Optional/minor) Fix Recharts container sizing to remove width/height(-1) warnings.",
+    "(Optional/a11y) Add DialogDescription (or aria-describedby) to Demo and Tour dialogs."
+  ],
+  "critical_code_review_comments": [
+    "server.py: uses @app.on_event('shutdown') which is deprecated in FastAPI; prefer lifespan context. Non-blocking.",
+    "server.py properly excludes MongoDB _id via projection {\"_id\": 0} — good.",
+    "server.py uses EmailStr and Pydantic validation for demo requests — correct 422 behavior verified.",
+    "No auth on GET /api/demo-requests — acceptable for MVP but data is publicly listable; flag for future."
+  ],
+  "updated_files": ["/app/backend/tests/test_synqora_api.py"],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "test_credentials": "N/A - no auth",
+  "seed_data_creation": "Created a few TEST_ prefixed demo requests in demo_requests collection via tests and UI (test_ui@example.com, test_alice@example.com, test_bob@example.com).",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Landing page + backend fully working. Only minor cosmetic/a11y issues remain. Backend tests live at /app/backend/tests/test_synqora_api.py. Public URL from frontend/.env; all endpoints under /api prefix.",
+  "rca of the issue": "N/A - no blocking issues found."
+}

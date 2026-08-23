@@ -1,0 +1,178 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --sq-bg: #0B0F17;
+  --sq-card: #131A24;
+  --sq-primary: #6D5EF5;
+  --sq-primary-hover: #594CE0;
+  --sq-accent: #9F8BFF;
+  --sq-success: #2ECC71;
+  --sq-warning: #F59E0B;
+  --sq-error: #EF4444;
+  --sq-text: #FFFFFF;
+  --sq-muted: #9CA3AF;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  margin: 0;
+  font-family: "Manrope", system-ui, -apple-system, sans-serif;
+  background-color: var(--sq-bg);
+  color: var(--sq-text);
+  overflow-x: hidden;
+}
+
+.font-heading {
+  font-family: "Outfit", system-ui, sans-serif;
+}
+
+code {
+  font-family: "Source Code Pro", Menlo, Monaco, Consolas, monospace;
+}
+
+/* Selection */
+::selection {
+  background: rgba(109, 94, 245, 0.35);
+  color: #fff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0F17;
+}
+::-webkit-scrollbar-thumb {
+  background: #232b38;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #333c4c;
+}
+
+@layer base {
+  :root {
+    --background: 222 33% 6%;
+    --foreground: 0 0% 100%;
+    --card: 214 30% 11%;
+    --card-foreground: 0 0% 100%;
+    --popover: 214 30% 11%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 247 88% 66%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 214 20% 16%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 214 20% 16%;
+    --muted-foreground: 220 9% 65%;
+    --accent: 251 100% 77%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 20% 20%;
+    --input: 214 20% 18%;
+    --ring: 247 88% 66%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ---------------- Utilities ---------------- */
+.sq-grain {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+.sq-radial-glow {
+  background: radial-gradient(circle at 50% 0%, rgba(109, 94, 245, 0.22), transparent 60%);
+}
+
+.sq-grid-lines {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.sq-text-gradient {
+  background: linear-gradient(90deg, #ffffff 0%, #cbc4ff 55%, #9F8BFF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sq-card {
+  background-color: #131A24;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.sq-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(109, 94, 245, 0.4);
+  box-shadow: 0 24px 60px -30px rgba(109, 94, 245, 0.5);
+}
+
+.sq-glass {
+  background: rgba(11, 15, 23, 0.7);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* Flow diagram pulse line */
+@keyframes sq-dash {
+  to {
+    background-position: -200% 0;
+  }
+}
+.sq-flow-line {
+  background-image: linear-gradient(90deg, rgba(109, 94, 245, 0.15) 0 40%, #9F8BFF 50%, rgba(109, 94, 245, 0.15) 60% 100%);
+  background-size: 200% 100%;
+  animation: sq-dash 2.4s linear infinite;
+}
+
+@keyframes sq-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.sq-float { animation: sq-float 6s ease-in-out infinite; }
+.sq-float-delayed { animation: sq-float 6s ease-in-out infinite; animation-delay: 1.5s; }
+
+@keyframes sq-pulse-dot {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.35); }
+}
+.sq-pulse-dot { animation: sq-pulse-dot 1.8s ease-in-out infinite; }
+
+@keyframes sq-bar-rise {
+  from { transform: scaleY(0.15); }
+  to { transform: scaleY(1); }
+}
+
+.sq-marquee {
+  animation: sq-marquee-scroll 32s linear infinite;
+}
+@keyframes sq-marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}

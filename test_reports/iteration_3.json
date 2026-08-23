@@ -1,0 +1,48 @@
+{
+  "summary": "Responsive audit of Synqora landing across 390/768/1440. Landing renders at all viewports. Solution mobile grid: no fragment overlap and no children overflow except one decorative blur. Mobile nav -> Book Demo modal, all 4 role tabs, all 6 platform modules, and FAQ accordion all work correctly. However, mobile (394 vs 390) and tablet (772 vs 768) each have a persistent 4px horizontal overflow caused by two decorative purple blur/glow divs escaping their parents. Mobile 'Book Demo' inside the nav sheet is only 36px tall (below the 40px touch-target guideline).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "Solution.jsx (BeforePanel)",
+        "issue": "Decorative div `absolute -right-16 -top-16 h-48 w-48 rounded-full bg-[#6D5EF5]/20 blur-3xl` (line 114) escapes the viewport by ~40px on mobile/tablet and causes the section's document scrollWidth to exceed innerWidth by 4px. The panel/section needs `overflow-hidden` (or the decoration must be constrained inside a clipped wrapper).",
+        "selector": "section#solution >> .pointer-events-none.absolute.-right-16.-top-16",
+        "priority": "HIGH"
+      },
+      {
+        "component": "DashboardShowcase.jsx",
+        "issue": "Decorative div `pointer-events-none absolute -inset-6 -z-10 rounded-3xl bg-[#6D5EF5]/10 blur-3xl` (line 93) extends 4px past viewport on mobile/tablet, contributing to horizontal overflow. Parent/section needs `overflow-hidden` or the -inset-6 should be reduced/clipped at small breakpoints.",
+        "selector": "section#dashboards >> .pointer-events-none.absolute.-inset-6",
+        "priority": "HIGH"
+      },
+      {
+        "component": "MobileNav (nav-mobile-book-demo-button)",
+        "issue": "Tap target height is only 36px on mobile (recommended >=40-44px for touch). Bounding box: 350x36.",
+        "selector": "[data-testid='nav-mobile-book-demo-button']",
+        "priority": "MEDIUM"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Mobile 390 & Tablet 768", "issues": ["Document scrollWidth exceeds innerWidth by 4px throughout page due to two decorative absolute blur divs. Causes hairline horizontal scroll on real devices."]}
+    ]
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Add `overflow-hidden` to the Solution section (or the BeforePanel wrapper) so the `-right-16 -top-16` blur is clipped.",
+    "Add `overflow-hidden` to the parent of the `-inset-6` blur in DashboardShowcase.jsx (or reduce the inset at <sm) so it doesn't push scrollWidth past the viewport.",
+    "Alternatively, add `overflow-x-hidden` on `body`/`main` as a safety net, but prefer clipping at the section level.",
+    "Increase min-height of `nav-mobile-book-demo-button` to `h-11` (44px) or `min-h-[44px]` to meet touch-target guidance."
+  ],
+  "critical_code_review_comments": [
+    "Recurring pattern: several sections use absolutely-positioned decorative blur/gradient divs with negative offsets but do NOT set `overflow-hidden` on the section wrapper — this is the root cause of the 4px overflow. Consider adding `overflow-hidden` to the base <section> wrapper used by all site components.",
+    "Console warning repeated across all viewports: 'The width(-1) and height(-1) of chart should be greater than 0' from Recharts ResponsiveContainer. Charts are rendering inside a hidden/zero-size container on first mount (likely the inactive role workspaces). Add `min-w-0` or gate chart mounts to the active tab to silence warnings and avoid layout thrash."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "n/a", "frontend": "85%"},
+  "seed_data_creation": "none",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "All interactive flows (mobile nav -> demo modal open/close via ESC, 4 role tabs -> workspace swap, 6 platform modules, FAQ expand/collapse via inner button) are verified working. Only remaining responsive defects are the 4px overflow on mobile/tablet and the 36px mobile Book Demo tap target. FAQ requires clicking the internal `button` (Radix trigger) rather than the outer item div — that is normal Radix behavior. Solution 'Without Synqora' fragments render cleanly as a 2-col grid on mobile with no overlap.",
+  "rca of the issue": "Horizontal overflow RCA: Two decorative absolute-positioned divs use negative offsets (`-right-16 -top-16` in Solution.jsx:114 and `-inset-6` in DashboardShowcase.jsx:93). Their containing sections do not have `overflow-hidden`, so the decorations extend the layout box and push document.scrollWidth to 394 on a 390px viewport and 772 on a 768px viewport. Reproduction: open the page at 390x844, run `document.documentElement.scrollWidth` -> 394 while innerWidth is 390. Mitigation: add `overflow-hidden` to the section wrappers of Solution and DashboardShowcase (and ideally to every section that hosts a blur/gradient decoration)."
+}
