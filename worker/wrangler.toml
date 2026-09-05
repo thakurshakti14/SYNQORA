@@ -1,0 +1,10 @@
+name = "synqora-demo-worker"
+main = "src/index.js"
+compatibility_date = "2024-09-23"
+
+[vars]
+# Origin allowed to POST to this worker (your deployed site's URL).
+ALLOWED_ORIGIN = "*"
+
+# Set the Apps Script Web App URL as a secret (not committed):
+#   wrangler secret put GOOGLE_SCRIPT_URL
